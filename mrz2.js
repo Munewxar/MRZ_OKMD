@@ -1,3 +1,6 @@
+/*
+        Created on 22.06.2017 by Steven Altamirano
+ */
 
 google.charts.load('current', {packages: ['corechart', 'line']});
 
@@ -7,6 +10,8 @@ var operation_abs, operation_compare, operation_multiplication, operation_expone
     matrixA = [], matrixB = [], matrixC = [], massiveE = [],
     p, m, q, N,
     arrKyN = [], arrEN = [], arrDN = [], arrKyR = [], arrER = [], arrDR = [];
+
+var timeParFirstAdditive = 0, timeParSecondAdditive = 0;
 
 function inputReading() {
 
@@ -117,14 +122,15 @@ function renewVariablesForGr() {
     e = 0;
     D = 0;
     timePar = 0;
+    timeParFirstAdditive = 0;
+    timeParSecondAdditive = 0;
     timePosl = 0;
     Lavg = 0;
 }
 
 function findSum(processorElemAmount, taskRang){
 
-    for (var i = 0; i < p; i++) {
-        for (var j = 0; j < q; j++) {
+    for (var i = 0, j = 0; i < p, j<q; i++, j++) {
 
             renewVariables();
 
@@ -135,11 +141,11 @@ function findSum(processorElemAmount, taskRang){
                 rangCompare += 2;
 
                 if (Math.abs(Math.abs(matrixA[i][k]) - Math.abs(matrixB[k][j])) < massiveE[k]) {
-                    d = Math.pow(matrixA[i][k], 2);
+                    d = matrixA[i][k] * matrixA[i][k];
                     amountExponentation++;
                     rangExponentation += 2;
                 } else {
-                    d = Math.pow(matrixA[i][k], 2) * matrixB[k][j];
+                    d = matrixA[i][k] * matrixA[i][k] * matrixB[k][j];
                     amountExponentation++;
                     amountMultiplication++;
                     rangExponentation += 2;
@@ -152,20 +158,27 @@ function findSum(processorElemAmount, taskRang){
             }
 
             matrixC[i][j] = Sum.toFixed(4);
+
             Sum = 0;
+
             timePosl += (amountAddition * operation_addition) + (amountCompare * operation_compare) +
                 (amountMultiplication * operation_multiplication) + (amountAbs * operation_abs) + (amountExponentation * operation_exponentation) +
                 (amountSubtraction * operation_subtraction);
-            timePar += (Math.ceil(amountAddition / processorElemAmount) * operation_addition) +
-                Math.ceil((amountExponentation / processorElemAmount) * operation_exponentation) +
-                Math.ceil((amountCompare / processorElemAmount) * operation_compare) +
-                Math.ceil((amountMultiplication / processorElemAmount) * operation_multiplication) +
+
+            timeParFirstAdditive += Math.ceil((amountCompare / processorElemAmount) * operation_compare) +
+                Math.ceil((amountSubtraction / processorElemAmount) * operation_subtraction) +
+            Math.ceil((amountAbs / processorElemAmount) * operation_abs);
+
+            timeParSecondAdditive += Math.ceil((amountCompare / processorElemAmount) * operation_compare) +
+                Math.ceil((amountSubtraction / processorElemAmount) * operation_subtraction) +
                 Math.ceil((amountAbs / processorElemAmount) * operation_abs) +
-                Math.ceil((amountSubtraction / processorElemAmount) * operation_subtraction);
+                Math.ceil((amountExponentation / processorElemAmount) * operation_exponentation) +
+                Math.ceil((amountMultiplication / processorElemAmount) * operation_multiplication);
+
+            timePar += timeParFirstAdditive + timeParSecondAdditive;
+
             Lavg += ((rangAddition * operation_addition) + (rangExponentation * operation_exponentation) + (rangMultiplication * operation_multiplication) +
             (rangCompare * operation_compare) + (rangAbs * operation_abs) + (rangSubtraction * operation_subtraction));
-
-        }
     }
 
     sumRang = taskRang*p*q;
