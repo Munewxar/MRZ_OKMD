@@ -337,8 +337,7 @@ function KyR() {
         vAxis: {
             title: 'Ky(r,n)'
         },
-        height: 650,
-        //weight: 740
+        height: 650
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('KyR'));
@@ -362,8 +361,7 @@ function ER() {
         vAxis: {
             title: 'e(r,n)'
         },
-        height: 650,
-        //weight: 740
+        height: 650
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('ER'));
@@ -387,8 +385,7 @@ function DR() {
         vAxis: {
             title: 'D(r,n)'
         },
-        height: 650,
-        //weight: 740
+        height: 650
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('DR'));
@@ -412,8 +409,7 @@ function KyN() {
         vAxis: {
             title: 'Ky(n,r)'
         },
-        height: 650,
-        //weight: 740
+        height: 650
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('KyN'));
@@ -437,8 +433,7 @@ function EN() {
         vAxis: {
             title: 'e(n,r)'
         },
-        height: 650,
-        //weight: 740
+        height: 650
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('EN'));
@@ -462,8 +457,7 @@ function DN() {
         vAxis: {
             title: 'D(n,r)'
         },
-        height: 650,
-        //weight: 740
+        height: 650
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('DN'));
